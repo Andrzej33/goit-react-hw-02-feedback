@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Statistics = ({ value }) => {
+const Statistics = ({ value, valueSecond, valueThird }) => {
   return (
     <ul>
       <li>
@@ -9,11 +9,19 @@ const Statistics = ({ value }) => {
       </li>
       <li>
         <span>Neutral:</span>
-        <span className="quantity">0</span>
+        <span className="quantity">{valueSecond}</span>
       </li>
       <li>
         <span>Bad:</span>
+        <span className="quantity">{valueThird}</span>
+      </li>
+      <li>
+        <span>Total:</span>
         <span className="quantity">0</span>
+      </li>
+      <li>
+        <span>Positive Feedback:</span>
+        <span className="quantity">%</span>
       </li>
     </ul>
   );

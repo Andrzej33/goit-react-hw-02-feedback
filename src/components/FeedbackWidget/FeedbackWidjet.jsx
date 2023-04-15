@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import FeedBackOptions from './FeedbackOptions';
 import Statistics from './Statistics';
 
-class FeedbackWidget extends React.Component {
+class FeedbackWidget extends Component {
   static defaultProps = {
     initialValue: 0,
   };
@@ -13,7 +13,18 @@ class FeedbackWidget extends React.Component {
 
   state = {
     value: this.props.initialValue,
+
+    valueIdx: 0,
+    visible: false,
   };
+
+  // show = () => {
+  //   this.setState(prevState => ({}));
+  // };
+
+  // hide = () => {
+  //   this.setState({ visible: false });
+  // };
 
   onGoodClick = () => {
     this.setState(prevState => ({
@@ -21,10 +32,14 @@ class FeedbackWidget extends React.Component {
     }));
   };
   onNeutralClick = () => {
-    console.log(this);
+    this.setState(prevState => ({
+      valueSecond: prevState.value + 1,
+    }));
   };
   onBadClick = () => {
-    console.log(this);
+    this.setState(prevState => ({
+      valueThird: prevState.value + 1,
+    }));
   };
   render() {
     return (
@@ -37,7 +52,7 @@ class FeedbackWidget extends React.Component {
         />
 
         <h2>Statistics</h2>
-        <Statistics value={this.state.value} />
+        {this.state.value > 0 && <Statistics value={this.state.value} />}
       </section>
     );
   }
