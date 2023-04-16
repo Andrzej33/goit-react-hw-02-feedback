@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FeedBackOptions = ({ onGood, onNeutral, onBad }) => {
+export const FeedBackOptions = ({ onGood, onNeutral, onBad }) => {
   return (
     <div>
       <button type="button" onClick={onGood}>
@@ -15,5 +15,3 @@ const FeedBackOptions = ({ onGood, onNeutral, onBad }) => {
     </div>
   );
 };
-
-export default FeedBackOptions;
