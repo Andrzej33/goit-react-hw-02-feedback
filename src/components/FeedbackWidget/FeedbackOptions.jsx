@@ -1,8 +1,9 @@
 import React from 'react';
+import { ButtonWrapped } from './FeedBackWidget.styled';
 
 export const FeedBackOptions = ({ onGood, onNeutral, onBad }) => {
   return (
-    <div>
+    <ButtonWrapped>
       <button type="button" onClick={onGood}>
         Good
       </button>
@@ -12,6 +13,6 @@ export const FeedBackOptions = ({ onGood, onNeutral, onBad }) => {
       <button type="button" onClick={onBad}>
         Bad
       </button>
-    </div>
+    </ButtonWrapped>
   );
 };
