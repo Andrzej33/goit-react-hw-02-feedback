@@ -12,10 +12,13 @@ class FeedbackWidget extends Component {
   //   };
 
   state = {
-    value: this.props.initialValue,
+    good: 0,
+    neutral: 0,
+    bad: 0,
+    // value: this.props.initialValue,
 
-    valueIdx: 0,
-    visible: false,
+    // valueIdx: 0,
+    // visible: false,
   };
 
   // show = () => {
@@ -28,20 +31,28 @@ class FeedbackWidget extends Component {
 
   onGoodClick = () => {
     this.setState(prevState => ({
-      value: prevState.value + 1,
+      good: prevState.good + 1,
     }));
+    // console.log(this.state.good + 1);
   };
   onNeutralClick = () => {
     this.setState(prevState => ({
-      valueSecond: prevState.value + 1,
+      neutral: prevState.neutral + 1,
     }));
   };
   onBadClick = () => {
     this.setState(prevState => ({
-      valueThird: prevState.value + 1,
+      bad: prevState.bad + 1,
     }));
   };
+  // countTotalFeedback()
+  // countPositiveFeedbackPercentage()
+
   render() {
+    const { good, neutral, bad } = this.state;
+    const total = good + neutral + bad;
+    const positivePercentage = Math.round((good * 100) / total);
+
     return (
       <section>
         <h1>Please leave feedback</h1>
@@ -52,7 +63,15 @@ class FeedbackWidget extends Component {
         />
 
         <h2>Statistics</h2>
-        {this.state.value > 0 && <Statistics value={this.state.value} />}
+        {total > 0 && (
+          <Statistics
+            good={good}
+            neutral={neutral}
+            bad={bad}
+            total={total}
+            positivePercentage={positivePercentage}
+          />
+        )}
       </section>
     );
   }
