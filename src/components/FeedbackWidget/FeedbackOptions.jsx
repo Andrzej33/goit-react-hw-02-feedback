@@ -1,18 +1,27 @@
 import React from 'react';
-import { ButtonWrapped } from './FeedBackWidget.styled';
+import { ButtonWrapped } from './FeedBackOptions.styled';
+import PropTypes from 'prop-types';
 
-export const FeedBackOptions = ({ onGood, onNeutral, onBad }) => {
+export const FeedBackOptions = ({ options, onLeaveFeedback }) => {
   return (
     <ButtonWrapped>
-      <button type="button" onClick={onGood}>
-        Good
-      </button>
-      <button type="button" onClick={onNeutral}>
-        Neutral
-      </button>
-      <button type="button" onClick={onBad}>
-        Bad
-      </button>
+      {options.map((name, i) => (
+        <button
+          key={i + 1}
+          type="button"
+          onClick={() => {
+            onLeaveFeedback(name);
+          }}
+        >
+          {name}
+        </button>
+      ))}
     </ButtonWrapped>
   );
+};
+
+FeedBackOptions.propTypes = {
+  onLeaveFeedback: PropTypes.func.isRequired,
+  options: PropTypes.arrayOf(PropTypes.oneOf(['good', 'neutral', 'bad']))
+    .isRequired,
 };

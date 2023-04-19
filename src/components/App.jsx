@@ -1,24 +1,71 @@
-import { ProfileCard } from './Profile/Profile';
-import user from '../user.json';
-import friends from '../friends.json';
-import data from '../data.json';
-import transactions from '../transactions.json';
-import { Statsics } from './Statstics/Statstics';
-import { FriendList } from './FriendList/FriendList';
-import { TransactionHistory } from './TransactionHistory/TransactionHistory';
+import React, { Component } from 'react';
+// import PropTypes from 'prop-types'
+import { Statistics } from './FeedbackWidget/Statistics';
+import { Section } from './FeedbackWidget/Section';
+import { Notification } from './FeedbackWidget/Notification';
 import { GlobalStyle } from './GlobalStyle';
 import { Layout } from './Layout/Layout';
-import FeedbackWidget from './FeedbackWidget/FeedbackWidjet';
+import { FeedBackOptions } from './FeedbackWidget/FeedbackOptions';
 
-export const App = () => {
-  return (
-    <Layout>
-      <FeedbackWidget />
-      <ProfileCard description={user} />
-      <Statsics title="Upload stats" stats={data} />
-      <FriendList friends={friends} />
-      <TransactionHistory transactions={transactions} />
-      <GlobalStyle />
-    </Layout>
-  );
-};
+export class App extends Component {
+  // static propTypes = {
+  //   title: PropTypes.string.isRequired,
+  //   options: PropTypes.shape({
+  //     good: PropTypes.number.isRequired,
+  //     neutral: PropTypes.number.isRequired,
+  //     bad: PropTypes.number.isRequired,
+  //   }
+  //   ).isRequired,
+  //   onLeaveFeedback: PropTypes.func.isRequired,
+  // };
+
+  state = {
+    good: 0,
+    neutral: 0,
+    bad: 0,
+  };
+
+  onLeaveFeedbackClick = nameBtn => {
+    this.setState(prevState => ({ [nameBtn]: prevState[nameBtn] + 1 }));
+  };
+
+  countTotalFeedback = () => {
+    return this.state.good + this.state.bad + this.state.neutral;
+  };
+
+  countPositiveFeedbackPercentage = () => {
+    return Math.round((this.state.good * 100) / this.countTotalFeedback());
+  };
+
+  render() {
+    const { good, neutral, bad } = this.state;
+    // const total = good + neutral + bad;
+    // const positivePercentage = Math.round((good * 100) / total);
+
+    return (
+      <Layout>
+        <Section title={'Please Leave feedback'}>
+          <FeedBackOptions
+            options={Object.keys(this.state)}
+            onLeaveFeedback={this.onLeaveFeedbackClick}
+          />
+        </Section>
+
+        <Section title={'Statistics'}>
+          {this.countTotalFeedback() > 0 ? (
+            <Statistics
+              good={good}
+              neutral={neutral}
+              bad={bad}
+              total={this.countTotalFeedback()}
+              positivePercentage={this.countPositiveFeedbackPercentage()}
+            />
+          ) : (
+            <Notification text="There is no feedback" />
+          )}
+        </Section>
+        <GlobalStyle />
+      </Layout>
+    );
+  }
+}
