@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types'
-import { Statistics } from './FeedbackWidget/Statistics';
-import { Section } from './FeedbackWidget/Section';
-import { Notification } from './FeedbackWidget/Notification';
+import { Statistics } from './Statistics/Statistics';
+import { Section } from './Section/Section';
+import { Notification } from './Notification/Notification';
 import { GlobalStyle } from './GlobalStyle';
 import { Layout } from './Layout/Layout';
-import { FeedBackOptions } from './FeedbackWidget/FeedbackOptions';
+import { FeedBackOptions } from './FeedbackOptions/FeedbackOptions';
 
 export class App extends Component {
   // static propTypes = {
